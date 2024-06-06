@@ -2,30 +2,28 @@ package app.revanced.patches.music.layout.branding.icon
 
 import app.revanced.patcher.data.ResourceContext
 import app.revanced.patcher.patch.PatchException
-import app.revanced.patcher.patch.ResourcePatch
-import app.revanced.patcher.patch.annotation.CompatiblePackage
-import app.revanced.patcher.patch.annotation.Patch
 import app.revanced.patcher.patch.options.PatchOption.PatchExtensions.booleanPatchOption
 import app.revanced.patcher.patch.options.PatchOption.PatchExtensions.stringPatchOption
+import app.revanced.patches.music.utils.compatibility.Constants.COMPATIBLE_PACKAGE
 import app.revanced.util.ResourceGroup
 import app.revanced.util.copyResources
+import app.revanced.util.patch.BaseResourcePatch
 import java.io.File
 import java.nio.file.Files
 
-@Patch(
+@Suppress("DEPRECATION", "unused")
+object CustomBrandingIconPatch : BaseResourcePatch(
     name = "Custom branding icon YouTube Music",
     description = "Changes the YouTube Music app icon to the icon specified in options.json.",
-    compatiblePackages = [CompatiblePackage("com.google.android.apps.youtube.music")],
-    use = false
-)
-@Suppress("unused")
-object CustomBrandingIconPatch : ResourcePatch() {
+    compatiblePackages = COMPATIBLE_PACKAGE
+) {
     private const val DEFAULT_ICON_KEY = "Revancify Blue"
 
     private val availableIcon = mapOf(
         "MMT" to "mmt",
         DEFAULT_ICON_KEY to "revancify_blue",
         "Revancify Red" to "revancify_red",
+        "Revancify Yellow" to "revancify_yellow",
         "AFN Blue" to "afn_blue",
         "AFN Red" to "afn_red",
         "Vanced Black" to "vanced_black",
@@ -54,7 +52,7 @@ object CustomBrandingIconPatch : ResourcePatch() {
         "mdpi"
     ).map { "mipmap-$it" }
 
-    private var AppIcon by stringPatchOption(
+    public var AppIcon by stringPatchOption(
         key = "AppIcon",
         default = DEFAULT_ICON_KEY,
         values = availableIcon,

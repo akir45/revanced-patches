@@ -1,9 +1,12 @@
+@file:Suppress("DEPRECATION", "MemberVisibilityCanBePrivate", "SpellCheckingInspection")
+
 package app.revanced.util
 
 import app.revanced.patcher.data.ResourceContext
 import app.revanced.patcher.util.DomFileEditor
 import org.w3c.dom.Element
 import org.w3c.dom.Node
+import java.io.InputStream
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
@@ -47,12 +50,13 @@ fun String.startsWithAny(vararg prefixes: String): Boolean {
 
 /**
  * Copy resources from the current class loader to the resource directory.
+ *
  * @param sourceResourceDirectory The source resource directory name.
  * @param resources The resources to copy.
  */
 fun ResourceContext.copyResources(
     sourceResourceDirectory: String,
-    vararg resources: ResourceGroup
+    vararg resources: ResourceGroup,
 ) {
     val targetResourceDirectory = this["res"]
 
@@ -60,13 +64,63 @@ fun ResourceContext.copyResources(
         resourceGroup.resources.forEach { resource ->
             val resourceFile = "${resourceGroup.resourceDirectoryName}/$resource"
             Files.copy(
-                classLoader.getResourceAsStream("$sourceResourceDirectory/$resourceFile")!!,
+                inputStreamFromBundledResource(sourceResourceDirectory, resourceFile)!!,
                 targetResourceDirectory.resolve(resourceFile).toPath(),
-                StandardCopyOption.REPLACE_EXISTING
+                StandardCopyOption.REPLACE_EXISTING,
             )
         }
     }
 }
+
+/**
+ * Copy resources from the current class loader to the resource directory with the option to rename.
+ *
+ * @param sourceResourceDirectory The source resource directory name.
+ * @param resourceMap The map containing resource titles and their respective path data.
+ */
+fun ResourceContext.copyResourcesWithRename(
+    sourceResourceDirectory: String,
+    resourceMap: Map<String, String>
+) {
+    val targetResourceDirectory = this["res"]
+
+    for ((title, pathData) in resourceMap) {
+        // Check if pathData is another title
+        if (resourceMap.containsKey(pathData)) {
+            continue // Skip copying if the pathData is another title
+        }
+
+        val resourceFile = "drawable/icon.xml"
+        val inputStream = inputStreamFromBundledResource(sourceResourceDirectory, resourceFile)!!
+        val targetFile = targetResourceDirectory.resolve("drawable/$title.xml").toPath()
+
+        Files.copy(inputStream, targetFile, StandardCopyOption.REPLACE_EXISTING)
+
+        // Update the XML with the new path data
+        this.xmlEditor[targetFile.toString()].use { editor ->
+            updatePathData(editor.file, pathData)
+        }
+    }
+}
+
+/**
+ * Update the `android:pathData` attribute in the XML document.
+ *
+ * @param document The XML document.
+ * @param pathData The new path data to set.
+ */
+fun updatePathData(document: org.w3c.dom.Document, pathData: String) {
+    val elements = document.getElementsByTagName("path")
+    for (i in 0 until elements.length) {
+        val pathElement = elements.item(i) as? Element
+        pathElement?.setAttribute("android:pathData", pathData)
+    }
+}
+
+internal fun inputStreamFromBundledResource(
+    sourceResourceDirectory: String,
+    resourceFile: String,
+): InputStream? = classLoader.getResourceAsStream("$sourceResourceDirectory/$resourceFile")
 
 /**
  * Resource names mapped to their corresponding resource data.
@@ -87,7 +141,7 @@ fun ResourceContext.copyXmlNode(
     elementTag: String
 ) {
     val stringsResourceInputStream =
-        classLoader.getResourceAsStream("$resourceDirectory/$targetResource")!!
+        inputStreamFromBundledResource(resourceDirectory, targetResource)!!
 
     // Copy nodes from the resources node to the real resource node
     elementTag.copyXmlNode(
