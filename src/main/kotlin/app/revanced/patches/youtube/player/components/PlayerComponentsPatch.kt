@@ -20,6 +20,7 @@ import app.revanced.patches.youtube.player.components.fingerprints.InfoCardsInco
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutCircleFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutIconFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutVideoFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.QuickSeekOverlayFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.SeekEduContainerFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.SuggestedActionsFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.TouchAreaOnClickListenerFingerprint
@@ -34,14 +35,18 @@ import app.revanced.patches.youtube.utils.integrations.Constants.COMPONENTS_PATH
 import app.revanced.patches.youtube.utils.integrations.Constants.PLAYER_CLASS_DESCRIPTOR
 import app.revanced.patches.youtube.utils.playertype.PlayerTypeHookPatch
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch
+import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.DarkBackground
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.FadeDurationFast
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.ScrimOverlay
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.SeekUndoEduOverlayStub
+import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.TapBloomView
 import app.revanced.patches.youtube.utils.settings.SettingsPatch
+import app.revanced.util.REGISTER_TEMPLATE_REPLACEMENT
 import app.revanced.util.getTargetIndexOrThrow
 import app.revanced.util.getTargetIndexReversedOrThrow
 import app.revanced.util.getTargetIndexWithMethodReferenceNameOrThrow
 import app.revanced.util.getWideLiteralInstructionIndex
+import app.revanced.util.literalInstructionViewHook
 import app.revanced.util.patch.BaseBytecodePatch
 import app.revanced.util.resultOrThrow
 import com.android.tools.smali.dexlib2.Opcode
@@ -73,6 +78,7 @@ object PlayerComponentsPatch : BaseBytecodePatch(
         LayoutCircleFingerprint,
         LayoutIconFingerprint,
         LayoutVideoFingerprint,
+        QuickSeekOverlayFingerprint,
         SeekEduContainerFingerprint,
         SuggestedActionsFingerprint,
         TouchAreaOnClickListenerFingerprint,
@@ -164,6 +170,24 @@ object PlayerComponentsPatch : BaseBytecodePatch(
 
         // endregion
 
+        // region patch for hide double-tap overlay filter
+
+        val smaliInstruction = """
+            invoke-static {v$REGISTER_TEMPLATE_REPLACEMENT}, $PLAYER_CLASS_DESCRIPTOR->hideDoubleTapOverlayFilter(Landroid/view/View;)V
+            """
+
+        arrayOf(
+            DarkBackground,
+            TapBloomView
+        ).forEach { literal ->
+            QuickSeekOverlayFingerprint.literalInstructionViewHook(
+                literal,
+                smaliInstruction
+            )
+        }
+
+        // endregion
+
         // region patch for hide end screen cards
 
         listOf(
@@ -219,7 +243,7 @@ object PlayerComponentsPatch : BaseBytecodePatch(
                 addLiteralValues(insertIndex, jumpIndex - 1)
 
                 addInstructionsWithLabels(
-                    insertIndex + 1, """
+                    insertIndex + 1, literalComponent + """
                         const v$constRegister, $FadeDurationFast
                         invoke-static {}, $PLAYER_CLASS_DESCRIPTOR->hideFilmstripOverlay()Z
                         move-result v${replaceInstruction.registerA}
@@ -355,31 +379,16 @@ object PlayerComponentsPatch : BaseBytecodePatch(
     ) {
         for (index in startIndex..endIndex) {
             val opcode = getInstruction(index).opcode
-            if (opcode != Opcode.CONST_16 && opcode != Opcode.CONST_4 && opcode != Opcode.CONST)
+            if (opcode != Opcode.CONST_16 && opcode != Opcode.CONST_4)
                 continue
 
             val register = getInstruction<OneRegisterInstruction>(index).registerA
             val value = getInstruction<WideLiteralInstruction>(index).wideLiteral.toInt()
 
-            val line =
-                when (opcode) {
-                    Opcode.CONST_16 -> """
-                            const/16 v$register, $value
-                            
-                            """.trimIndent()
-
-                    Opcode.CONST_4 -> """
-                            const/4 v$register, $value
-                            
-                            """.trimIndent()
-
-                    Opcode.CONST -> """
-                            const v$register, $value
-                            
-                            """.trimIndent()
-
-                    else -> ""
-                }
+            val line = """
+                const/16 v$register, $value
+                
+                """.trimIndent()
 
             literalComponent += line
         }
