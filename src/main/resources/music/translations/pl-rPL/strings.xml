@@ -14,6 +14,10 @@ Kontynuuj i wyłącz optymalizację baterii."</string>
     <string name="gms_core_settings_summary">Włącz cloud messaging, by otrzymywać powiadomienia.</string>
     <string name="gms_core_settings_title">Otwórz GmsCore</string>
     <string name="gms_core_toast_not_installed_message">GmsCore nie jest zainstalowany. Zainstaluj go.</string>
+    <string name="revanced_bypass_image_region_restrictions_summary">Zastępuje domenę, która jest blokowana w niektórych regionach, aby można było otrzymywać miniaturki playlist, awatary kanałów itp.</string>
+    <string name="revanced_bypass_image_region_restrictions_title">Pomiń ograniczenia regionu dla obrazów</string>
+    <string name="revanced_change_share_sheet_summary">Zmienia wygląd panelu udostępniania z natywnego aplikacji na systemowy.</string>
+    <string name="revanced_change_share_sheet_title">Zmień wygląd panelu udostępniania</string>
     <string name="revanced_change_start_page_entry_chart">Listy przebojów</string>
     <string name="revanced_change_start_page_entry_explore">Odkrywaj</string>
     <string name="revanced_change_start_page_entry_home">Strona główna</string>
@@ -30,10 +34,16 @@ Kontynuuj i wyłącz optymalizację baterii."</string>
     <string name="revanced_custom_playback_speeds_parse_exception">Nieprawidłowe niestandardowe prędkości odtwarzania. Przywrócono domyślne wartości.</string>
     <string name="revanced_custom_playback_speeds_summary">Skonfiguruj dostępne prędkości odtwarzania.</string>
     <string name="revanced_custom_playback_speeds_title">Edytuj niestandardowe prędkości odtwarzania</string>
-    <string name="revanced_disable_auto_captions_summary">Wyłącza automatycznie włączane napisy w odtwarzaczu wideo.</string>
+    <string name="revanced_disable_auto_captions_summary">Wyłącza automatycznie włączane napisy w odtwarzaczu filmów.</string>
     <string name="revanced_disable_auto_captions_title">Wyłącz automatyczne napisy</string>
+    <string name="revanced_disable_cairo_splash_animation_summary">Wyłącza animację ładowania aplikacji związaną z motywem Cairo podczas otwierania aplikacji.</string>
+    <string name="revanced_disable_cairo_splash_animation_title">Wyłącz animację uruchamiania aplikacji</string>
     <string name="revanced_disable_dislike_redirection_summary">Wyłącza przenoszenie do następnego utworu po kliknięciu łapki w dół.</string>
-    <string name="revanced_disable_dislike_redirection_title">Wyłącz pomijanie nielubionych piosenek</string>
+    <string name="revanced_disable_dislike_redirection_title">Wyłącz pomijanie nielubianych piosenek</string>
+    <string name="revanced_disable_mini_player_gesture_summary">Wyłącza gest przesuwania, aby zmienić utwór w miniodtwarzaczu.</string>
+    <string name="revanced_disable_mini_player_gesture_title">Wyłącz gest w miniodtwarzaczu</string>
+    <string name="revanced_disable_player_gesture_summary">Wyłącza gest przesuwania, aby zmienić utwór w odtwarzaczu.</string>
+    <string name="revanced_disable_player_gesture_title">Wyłącz gest w odtwarzaczu</string>
     <string name="revanced_enable_black_navigation_bar_summary">Ustawia kolor paska nawigacji na czarny.</string>
     <string name="revanced_enable_black_navigation_bar_title">Włącz czarny pasek nawigacji</string>
     <string name="revanced_enable_black_player_background_summary">Zmienia tło odtwarzacza na czarne.</string>
@@ -138,6 +148,8 @@ Pobierz %2$s ze strony."</string>
     <string name="revanced_hide_comment_channel_guidelines_title">Ukryj wytyczne</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_summary">Ukrywa czas i przyciski od emotikon podczas pisania komentarzy.</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_title">Ukryj czas i przyciski od emotikon</string>
+    <string name="revanced_hide_double_tap_overlay_filter_summary">Ukrywa poświatę pojawiającą się, gdy przewijamy za pomocą podwójnego kliknięcia.</string>
+    <string name="revanced_hide_double_tap_overlay_filter_title">Ukryj poświatę po dwukrotnym kliknięciu</string>
     <string name="revanced_hide_floating_button_summary">Ukrywa pływający przycisk w zakładce biblioteki.</string>
     <string name="revanced_hide_floating_button_title">Ukryj pływający przycisk</string>
     <string name="revanced_hide_flyout_menu_3_column_component_title">Ukryj 3-kolumnowy komponent</string>
@@ -174,6 +186,10 @@ Pobierz %2$s ze strony."</string>
     <string name="revanced_hide_fullscreen_ads_title">Ukryj reklamy pełnoekranowe</string>
     <string name="revanced_hide_fullscreen_ads_type_summary">"Jeśli opcja jest włączona, pełnoekranowe reklamy są zamykane poprzez przycisk zamknięcia.
 Jeśli opcja jest wyłączona, pełnoekranowe reklamy są blokowane (mogą wystąpić efekty uboczne)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_off">"Jeśli opcja jest włączona, pełnoekranowe reklamy są zamykane poprzez przycisk zamknięcia.
+Jeśli opcja jest wyłączona, pełnoekranowe reklamy są blokowane (mogą wystąpić efekty uboczne)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_on">"Jeśli opcja jest włączona, pełnoekranowe reklamy są zamykane poprzez przycisk zamknięcia.
+Jeśli opcja jest wyłączona, pełnoekranowe reklamy są blokowane (mogą wystąpić efekty uboczne)"</string>
     <string name="revanced_hide_fullscreen_ads_type_title">Zamknij pełnoekranowe reklamy</string>
     <string name="revanced_hide_fullscreen_share_button_summary">Ukrywa przycisk udostępniania w trybie pełnoekranowym.</string>
     <string name="revanced_hide_fullscreen_share_button_title">Ukryj przycisk udostępniania w trybie pełnoekranowym</string>
@@ -209,8 +225,15 @@ Jeśli opcja jest wyłączona, pełnoekranowe reklamy są blokowane (mogą wyst�
     <string name="revanced_hide_premium_promotion_title">Ukryj wyskakujące okienka promocyjne Premium</string>
     <string name="revanced_hide_premium_renewal_summary">Ukrywa baner odnawiania Premium.</string>
     <string name="revanced_hide_premium_renewal_title">Ukryj baner odnawiania Premium</string>
+    <string name="revanced_hide_promotion_alert_banner_summary">Ukrywa banery z alertami promocyjnymi.</string>
+    <string name="revanced_hide_promotion_alert_banner_title">Ukryj banery z alertami promocyjnymi</string>
     <string name="revanced_hide_samples_shelf_summary">Ukrywa półke z samplami na stronie głównej.</string>
     <string name="revanced_hide_samples_shelf_title">Ukryj półkę z samplami</string>
+    <string name="revanced_hide_settings_menu_filter_strings_summary">Lista menu ustawień do filtrowania, która musi być oddzielona nowymi liniami.</string>
+    <string name="revanced_hide_settings_menu_filter_strings_title">Filtr menu ustawień</string>
+    <string name="revanced_hide_settings_menu_summary">"Ukrywa elementy menu ustawień.
+Działa nie tylko na elementy menu ustawień YT Music, lecz także ReVanced Extended."</string>
+    <string name="revanced_hide_settings_menu_title">Ukryj menu ustawień</string>
     <string name="revanced_hide_sound_search_button_summary">Ukrywa przycisk od rozpoznawania piosenek w pasku wyszukiwania.</string>
     <string name="revanced_hide_sound_search_button_title">Ukryj przycisk od rozpoznawania piosenek</string>
     <string name="revanced_hide_tap_to_update_button_summary">Ukrywa przycisk \'Stuknij, aby zaktualizować\'.</string>
@@ -229,16 +252,20 @@ Jeśli opcja jest wyłączona, pełnoekranowe reklamy są blokowane (mogą wyst�
     <string name="revanced_preference_screen_player_title">Odtwarzacz</string>
     <string name="revanced_preference_screen_ryd_title">Return YouTube Dislike</string>
     <string name="revanced_preference_screen_sb_title">SponsorBlock</string>
-    <string name="revanced_preference_screen_video_title">Wideo</string>
+    <string name="revanced_preference_screen_video_title">Teledyski</string>
     <string name="revanced_remember_playback_speed_last_selected_summary">Zapisuje ostatnią wybraną prędkość odtwarzania.</string>
     <string name="revanced_remember_playback_speed_last_selected_title">Zapamiętuj zmiany prędkości odtwarzania</string>
+    <string name="revanced_remember_playback_speed_last_selected_toast_summary">Komunikaty będą wyświetlane po zmianie domyślnej prędkości odtwarzania.</string>
+    <string name="revanced_remember_playback_speed_last_selected_toast_title">Komunikaty o zmianie domyślnej prędkości odtwarzania</string>
     <string name="revanced_remember_playback_speed_toast">Zmieniono domyślną prędkość odtwarzania na %s.</string>
     <string name="revanced_remember_repeat_state_summary">Zapisuje stan pętli.</string>
     <string name="revanced_remember_repeat_state_title">Zapamiętaj stan pętli</string>
     <string name="revanced_remember_shuffle_state_summary">Zapisuje stan odtwarzania losowego.</string>
     <string name="revanced_remember_shuffle_state_title">Zapamiętaj stan odtwarzania losowego</string>
-    <string name="revanced_remember_video_quality_last_selected_summary">Zapisuje ostatnią wybraną jakość wideo.</string>
-    <string name="revanced_remember_video_quality_last_selected_title">Zapamiętuj zmiany jakości wideo</string>
+    <string name="revanced_remember_video_quality_last_selected_summary">Zapisuje ostatnią wybraną jakość teledysku.</string>
+    <string name="revanced_remember_video_quality_last_selected_title">Zapamiętuj zmiany jakości teledysku</string>
+    <string name="revanced_remember_video_quality_last_selected_toast_summary">Komunikaty będą wyświetlane po zmianie domyślnej jakości teledysków.</string>
+    <string name="revanced_remember_video_quality_last_selected_toast_title">Komunikaty o zmianie domyślnej jakości teledysków</string>
     <string name="revanced_remember_video_quality_mobile">Zmieniono domyślną jakość podczas używania sieci mobilnej na %s.</string>
     <string name="revanced_remember_video_quality_none">Jakość nie została ustawiona.</string>
     <string name="revanced_remember_video_quality_wifi">Zmieniono domyślną jakość podczas używania Wi-Fi na %s.</string>
@@ -250,7 +277,7 @@ Nie pomija to ograniczeń wiekowych, lecz akceptuje je automatycznie."</string>
     <string name="revanced_replace_flyout_menu_dismiss_queue_summary">Zamienia menu od czyszczenia kolejek z menu od oglądania na YouTube.</string>
     <string name="revanced_replace_flyout_menu_dismiss_queue_title">Zmodyfikuj czyszczenie kolejek</string>
     <string name="revanced_replace_flyout_menu_dismiss_queue_watch_on_youtube_label">Oglądaj na YouTube</string>
-    <string name="revanced_replace_flyout_menu_dismiss_queue_watch_on_youtube_warning">Niepoprawne url wideo.</string>
+    <string name="revanced_replace_flyout_menu_dismiss_queue_watch_on_youtube_warning">Niepoprawne URL filmu.</string>
     <string name="revanced_replace_flyout_menu_report_only_player_summary">Zachowuje menu zgłaszania w sekcji komentarzy.</string>
     <string name="revanced_replace_flyout_menu_report_only_player_title">Zachowaj zgłaszanie w komentarzach</string>
     <string name="revanced_replace_flyout_menu_report_summary">Zamienia przycisk od zgłaszania z przyciskiem od prędkości odtwarzania.</string>
@@ -271,7 +298,7 @@ Niektóre ustawienia mogą nie działać poprawnie ze starym układem odtwarzacz
     <string name="revanced_ryd_compact_layout_title">Kompaktowy przycisk od łapkowania</string>
     <string name="revanced_ryd_dislike_percentage_summary">Zamiast ilości łapek w dół, jest wyświetlany ich procent.</string>
     <string name="revanced_ryd_dislike_percentage_title">Łapki w dół wyświetlane jako procent</string>
-    <string name="revanced_ryd_enabled_summary">Pokazuje ilość łapek w dół wideo.</string>
+    <string name="revanced_ryd_enabled_summary">Pokazuje ilość łapek w dół filmów.</string>
     <string name="revanced_ryd_enabled_title">Włącz Return YouTube Dislike</string>
     <string name="revanced_ryd_failure_client_rate_limit_requested">Łapki w dół nie są dostępne (limit API użytkownika został osiągnięty).</string>
     <string name="revanced_ryd_failure_connection_status_code">Liczba łapek w dół nie jest dostępna (status %d).</string>
@@ -279,7 +306,6 @@ Niektóre ustawienia mogą nie działać poprawnie ze starym układem odtwarzacz
     <string name="revanced_ryd_failure_generic">Liczba łapek w dół nie jest dostępna (%s).</string>
     <string name="revanced_ryd_toast_on_connection_error_summary">Komunikat wyświetlany w momencie, gdy API ReturnYouTubeDislike jest niedostępne.</string>
     <string name="revanced_ryd_toast_on_connection_error_title">Pokaż komunikat o niedostępności API</string>
-    <string name="revanced_ryd_video_likes_hidden_by_video_owner">Ukryte</string>
     <string name="revanced_sanitize_sharing_links_summary">Usuwa parametry śledzących zapytań z adresów URL podczas udostępniania linków.</string>
     <string name="revanced_sanitize_sharing_links_title">Oczyść udostępniane linki</string>
     <string name="revanced_sb_about">O integracji</string>
@@ -296,10 +322,10 @@ Niektóre ustawienia mogą nie działać poprawnie ze starym układem odtwarzacz
     <string name="revanced_sb_color_reset">Kolor został zresetowany.</string>
     <string name="revanced_sb_diff_segments">Zmień sposoby pomijania segmentów</string>
     <string name="revanced_sb_enabled">Włącz SponsorBlock</string>
-    <string name="revanced_sb_enabled_sum">SponsorBlock to system pomijania denerwujących fragmentów w wideo na YouTube.</string>
+    <string name="revanced_sb_enabled_sum">SponsorBlock to system pomijania denerwujących fragmentów w filmach na YouTube.</string>
     <string name="revanced_sb_reset_color">Zresetuj kolor</string>
     <string name="revanced_sb_segments_filler">Nietematyczny Wypełniacz / Żarty</string>
-    <string name="revanced_sb_segments_filler_sum">Segmenty nietematyczne dodawane tylko dla wypełnienia lub humor, który nie jest wymagany do zrozumienia głównej treści wideo. Nie dotyczy segmentów zawierających informacje kontekstowe lub szczegółowe.</string>
+    <string name="revanced_sb_segments_filler_sum">Segmenty nietematyczne dodawane tylko dla wypełnienia lub humor, który nie jest wymagany do zrozumienia głównej treści filmu. Nie dotyczy segmentów zawierających informacje kontekstowe lub szczegółowe.</string>
     <string name="revanced_sb_segments_interaction">Przypomnienie O Interakcji (Zasubskrybuj)</string>
     <string name="revanced_sb_segments_interaction_sum">Krótkie przypomnienie o łapce w górę, subskrypcji lub obserwowaniu w środku kontentu. Jeśli trwa długo lub dotyczy czegoś konkretnego, powinno być oznaczone jako autopromocja.</string>
     <string name="revanced_sb_segments_intro">Przerywnik / Animowane Intro</string>
@@ -309,9 +335,9 @@ Niektóre ustawienia mogą nie działać poprawnie ze starym układem odtwarzacz
     <string name="revanced_sb_segments_outro">Karty / Napisy Końcowe</string>
     <string name="revanced_sb_segments_outro_sum">Napisy końcowe lub gdy pojawia się ekran końcowy. Nie dotyczy zakończeń zawierających informacje.</string>
     <string name="revanced_sb_segments_preview">Zapowiedź / Podsumowanie / Haczyk</string>
-    <string name="revanced_sb_segments_preview_sum">Zbiór klipów pokazujących to, co pojawi się lub co pojawiło się w tym wideo, lub innych wideo z tej serii, w którym wszystkie informacje są gdzieś powtarzane.</string>
+    <string name="revanced_sb_segments_preview_sum">Zbiór klipów pokazujących to, co pojawi się lub co pojawiło się w tym filmie, oraz innych fiilmach z tej serii, w którym wszystkie informacje są gdzieś powtarzane.</string>
     <string name="revanced_sb_segments_selfpromo">Nieopłacona / Auto Reklama</string>
-    <string name="revanced_sb_segments_selfpromo_sum">Podobne do \'Treści Sponsorowanych\' z wyjątkiem nieopłaconych lub autoreklam. Obejmuje to sekcje o własnych towarach, darowiznach czy informacjach o tym, z kim współpracowali.</string>
+    <string name="revanced_sb_segments_selfpromo_sum">Podobne do treści sponsorowanych, z wyjątkiem nieopłaconych lub autoreklam. Obejmuje to sekcje o własnych towarach, darowiznach czy informacjach o tym, z kim współpracowali.</string>
     <string name="revanced_sb_segments_sponsor">Treści Sponsorowane</string>
     <string name="revanced_sb_segments_sponsor_sum">Płatna promocja, płatne rekomendacje oraz bezpośrednie reklamy. Nie do autopromocji ani darmowych wyrazów uznania dla kwestii / twórców / stron / produktów, które im się podobają.</string>
     <string name="revanced_sb_skip_automatically">Pomiń automatycznie</string>

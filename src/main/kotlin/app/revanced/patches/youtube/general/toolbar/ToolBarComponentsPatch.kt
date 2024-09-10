@@ -8,10 +8,8 @@ import app.revanced.patcher.extensions.InstructionExtensions.getInstruction
 import app.revanced.patcher.extensions.InstructionExtensions.removeInstruction
 import app.revanced.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.revanced.patcher.patch.PatchException
-import app.revanced.patcher.patch.options.PatchOption.PatchExtensions.booleanPatchOption
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
 import app.revanced.patcher.util.smali.ExternalLabel
-import app.revanced.patches.shared.voicesearch.VoiceSearchUtils.patchXml
 import app.revanced.patches.youtube.general.toolbar.fingerprints.ActionBarRingoBackgroundFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.ActionBarRingoTextFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.AttributeResolverFingerprint
@@ -19,6 +17,7 @@ import app.revanced.patches.youtube.general.toolbar.fingerprints.CreateButtonDra
 import app.revanced.patches.youtube.general.toolbar.fingerprints.CreateSearchSuggestionsFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.DrawerContentViewConstructorFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.DrawerContentViewFingerprint
+import app.revanced.patches.youtube.general.toolbar.fingerprints.ImageSearchButtonConfigFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.SearchBarFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.SearchBarParentFingerprint
 import app.revanced.patches.youtube.general.toolbar.fingerprints.SearchResultFingerprint
@@ -28,6 +27,7 @@ import app.revanced.patches.youtube.general.toolbar.fingerprints.YouActionBarFin
 import app.revanced.patches.youtube.utils.castbutton.CastButtonPatch
 import app.revanced.patches.youtube.utils.compatibility.Constants.COMPATIBLE_PACKAGE
 import app.revanced.patches.youtube.utils.integrations.Constants.GENERAL_CLASS_DESCRIPTOR
+import app.revanced.patches.youtube.utils.integrations.Constants.PATCH_STATUS_CLASS_DESCRIPTOR
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.ActionBarRingoBackground
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.VoiceSearch
@@ -45,9 +45,11 @@ import app.revanced.util.getTargetIndexWithReferenceOrThrow
 import app.revanced.util.getTargetIndexWithReferenceReversedOrThrow
 import app.revanced.util.getWalkerMethod
 import app.revanced.util.getWideLiteralInstructionIndex
+import app.revanced.util.literalInstructionBooleanHook
 import app.revanced.util.literalInstructionHook
 import app.revanced.util.patch.BaseBytecodePatch
 import app.revanced.util.resultOrThrow
+import app.revanced.util.updatePatchStatus
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
@@ -77,20 +79,18 @@ object ToolBarComponentsPatch : BaseBytecodePatch(
         SearchBarParentFingerprint,
         SearchResultFingerprint,
         SetActionBarRingoFingerprint,
-        SetWordMarkHeaderFingerprint
+        SetWordMarkHeaderFingerprint,
+        ImageSearchButtonConfigFingerprint,
     )
 ) {
     private const val TARGET_RESOURCE_PATH = "res/layout/action_bar_ringo_background.xml"
 
-    private val ForceHideVoiceSearchButton by booleanPatchOption(
-        key = "ForceHideVoiceSearchButton",
-        default = false,
-        title = "Force hide voice search button",
-        description = "Permanently hide the voice search button with the legacy method.",
-        required = true
-    )
-
     override fun execute(context: BytecodeContext) {
+
+        var settingArray = arrayOf(
+            "PREFERENCE_SCREEN: GENERAL",
+            "SETTINGS: TOOLBAR_COMPONENTS"
+        )
 
         // region patch for change YouTube header
 
@@ -308,69 +308,57 @@ object ToolBarComponentsPatch : BaseBytecodePatch(
 
         // region patch for hide voice search button
 
-        if (ForceHideVoiceSearchButton == true) {
-            contexts.patchXml(
-                arrayOf(
-                    "action_bar_search_results_view_mic.xml",
-                    "action_bar_search_view.xml",
-                    "action_bar_search_view_grey.xml",
-                    "action_bar_search_view_mic_out.xml"
-                ),
-                arrayOf(
-                    "height",
-                    "marginEnd",
-                    "marginStart",
-                    "width"
+        if (SettingsPatch.upward1928) {
+            ImageSearchButtonConfigFingerprint.literalInstructionBooleanHook(
+                45617544,
+                "$GENERAL_CLASS_DESCRIPTOR->hideImageSearchButton(Z)Z"
+            )
+
+            context.updatePatchStatus(PATCH_STATUS_CLASS_DESCRIPTOR, "ImageSearchButton")
+
+            settingArray += "SETTINGS: HIDE_IMAGE_SEARCH_BUTTON"
+        }
+
+        // endregion
+
+        // region patch for hide voice search button
+
+        SearchBarFingerprint.resolve(
+            context,
+            SearchBarParentFingerprint.resultOrThrow().classDef
+        )
+        SearchBarFingerprint.resultOrThrow().let {
+            it.mutableMethod.apply {
+                val startIndex = it.scanResult.patternScanResult!!.startIndex
+                val setVisibilityIndex =
+                    getTargetIndexWithMethodReferenceNameOrThrow(startIndex, "setVisibility")
+                val setVisibilityInstruction =
+                    getInstruction<FiveRegisterInstruction>(setVisibilityIndex)
+
+                replaceInstruction(
+                    setVisibilityIndex,
+                    "invoke-static {v${setVisibilityInstruction.registerC}, v${setVisibilityInstruction.registerD}}, " +
+                            "$GENERAL_CLASS_DESCRIPTOR->hideVoiceSearchButton(Landroid/view/View;I)V"
                 )
-            )
-        } else {
-            SearchBarFingerprint.resolve(
-                context,
-                SearchBarParentFingerprint.resultOrThrow().classDef
-            )
-
-            SearchBarFingerprint.resultOrThrow().let {
-                it.mutableMethod.apply {
-                    val startIndex = it.scanResult.patternScanResult!!.startIndex
-                    val setVisibilityIndex =
-                        getTargetIndexWithMethodReferenceNameOrThrow(startIndex, "setVisibility")
-                    val setVisibilityInstruction =
-                        getInstruction<FiveRegisterInstruction>(setVisibilityIndex)
-
-                    replaceInstruction(
-                        setVisibilityIndex,
-                        "invoke-static {v${setVisibilityInstruction.registerC}, v${setVisibilityInstruction.registerD}}, " +
-                                "$GENERAL_CLASS_DESCRIPTOR->hideVoiceSearchButton(Landroid/view/View;I)V"
-                    )
-                }
             }
+        }
 
-            SearchResultFingerprint.resultOrThrow().let {
-                it.mutableMethod.apply {
-                    val startIndex = getWideLiteralInstructionIndex(VoiceSearch)
-                    val setOnClickListenerIndex =
-                        getTargetIndexWithMethodReferenceNameOrThrow(
-                            startIndex,
-                            "setOnClickListener"
-                        )
-                    val viewRegister =
-                        getInstruction<FiveRegisterInstruction>(setOnClickListenerIndex).registerC
-
-                    addInstruction(
-                        setOnClickListenerIndex + 1,
-                        "invoke-static {v$viewRegister}, $GENERAL_CLASS_DESCRIPTOR->hideVoiceSearchButton(Landroid/view/View;)V"
+        SearchResultFingerprint.resultOrThrow().let {
+            it.mutableMethod.apply {
+                val startIndex = getWideLiteralInstructionIndex(VoiceSearch)
+                val setOnClickListenerIndex =
+                    getTargetIndexWithMethodReferenceNameOrThrow(
+                        startIndex,
+                        "setOnClickListener"
                     )
-                }
-            }
+                val viewRegister =
+                    getInstruction<FiveRegisterInstruction>(setOnClickListenerIndex).registerC
 
-            /**
-             * Add settings
-             */
-            SettingsPatch.addPreference(
-                arrayOf(
-                    "SETTINGS: HIDE_VOICE_SEARCH_BUTTON"
+                addInstruction(
+                    setOnClickListenerIndex + 1,
+                    "invoke-static {v$viewRegister}, $GENERAL_CLASS_DESCRIPTOR->hideVoiceSearchButton(Landroid/view/View;)V"
                 )
-            )
+            }
         }
 
         // endregion
@@ -406,12 +394,7 @@ object ToolBarComponentsPatch : BaseBytecodePatch(
         /**
          * Add settings
          */
-        SettingsPatch.addPreference(
-            arrayOf(
-                "PREFERENCE_SCREEN: GENERAL",
-                "SETTINGS: TOOLBAR_COMPONENTS"
-            )
-        )
+        SettingsPatch.addPreference(settingArray)
 
         SettingsPatch.updatePatchStatus(this)
     }

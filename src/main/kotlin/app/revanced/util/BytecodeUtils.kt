@@ -19,6 +19,7 @@ import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.Method
+import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
@@ -41,6 +42,9 @@ fun MethodFingerprint.resultOrThrow() = result ?: throw exception
  */
 val MethodFingerprint.exception
     get() = PatchException("Failed to resolve ${this.javaClass.simpleName}")
+
+fun MethodFingerprint.alsoResolve(context: BytecodeContext, fingerprint: MethodFingerprint) =
+    also { resolve(context, fingerprint.resultOrThrow().classDef) }.resultOrThrow()
 
 /**
  * Find the [MutableMethod] from a given [Method] in a [MutableClass].
@@ -600,13 +604,35 @@ fun MutableMethod.getTargetIndexWithReferenceReversed(startIndex: Int, reference
     return -1
 }
 
-fun MethodFingerprintResult.getWalkerMethod(context: BytecodeContext, index: Int) =
-    mutableMethod.getWalkerMethod(context, index)
+fun MethodFingerprintResult.getWalkerMethod(context: BytecodeContext, offset: Int) =
+    mutableMethod.getWalkerMethod(context, offset)
 
-fun MutableMethod.getWalkerMethod(context: BytecodeContext, index: Int) =
-    context.toMethodWalker(this)
-        .nextMethod(index, true)
-        .getMethod() as MutableMethod
+/**
+ * MethodWalker structural limitations cause incorrect class to be found
+ *
+ * MethodReference to find in YouTube 18.29.38:
+ * 'Lng;->d(Lou;)Z'
+ *
+ * Class found by MethodWalker in YouTube 18.29.38:
+ * 'Lcom/google/android/gms/maps/model/LatLng;'
+ *
+ * The reason this error occurs is because [BytecodeContext.findClass] checks whether className is included or not
+ *
+ * In ReVanced Patcher 19.3.1:
+ * fun findClass(className: String) = findClass { it.type.contains(className) }
+ *
+ * (Class 'Lcom/google/android/gms/maps/model/LatLng;' is returned because class 'Lcom/google/android/gms/maps/model/LatLng;' contains keyword 'Lng;')
+ *
+ * As a workaround, redefine MethodWalker here
+ */
+fun MutableMethod.getWalkerMethod(context: BytecodeContext, offset: Int): MutableMethod {
+    val newMethod = getInstruction<ReferenceInstruction>(offset).reference as MethodReference
+    return context.findClass { classDef -> classDef.type == newMethod.definingClass }
+        ?.mutableClass
+        ?.methods
+        ?.first { method -> MethodUtil.methodSignaturesMatch(method, newMethod) }
+        ?: throw PatchException("This method can not be walked at offset $offset inside the method $name")
+}
 
 fun MutableClass.addFieldAndInstructions(
     context: BytecodeContext,
@@ -644,15 +670,22 @@ fun MutableClass.addFieldAndInstructions(
             .filter { method -> method.name == "<init>" }
             .forEach { mutableMethod ->
                 mutableMethod.apply {
-                    val initializeIndex = getTargetIndexWithMethodReferenceName("<init>")
+                    val initializeIndex = indexOfFirstInstructionOrThrow {
+                        opcode == Opcode.INVOKE_DIRECT && getReference<MethodReference>()?.name == "<init>"
+                    }
                     val insertIndex = if (initializeIndex == -1)
                         1
                     else
                         initializeIndex + 1
 
+                    val initializeRegister = if (initializeIndex == -1)
+                        "p0"
+                    else
+                        "v${getInstruction<FiveRegisterInstruction>(initializeIndex).registerC}"
+
                     addInstruction(
                         insertIndex,
-                        "sput-object p0, $objectCall"
+                        "sput-object $initializeRegister, $objectCall"
                     )
                 }
             }

@@ -18,6 +18,7 @@ abstract class BaseMainActivityResolvePatch(
     setOf(mainActivityOnCreateFingerprint)
 ) {
     lateinit var mainActivityMutableClass: MutableClass
+    lateinit var onConfigurationChangedMethod: MutableMethod
 
     private lateinit var constructorMethod: MutableMethod
     private lateinit var onBackPressedMethod: MutableMethod
@@ -38,6 +39,9 @@ abstract class BaseMainActivityResolvePatch(
         // set onBackPressed method
         onBackPressedMethod = getMethod("onBackPressed")
         onBackPressedMethodIndex = onBackPressedMethod.getTargetIndexOrThrow(Opcode.RETURN_VOID)
+
+        // set onConfigurationChanged method
+        onConfigurationChangedMethod = getMethod("onConfigurationChanged")
     }
 
     fun injectConstructorMethodCall(classDescriptor: String, methodDescriptor: String) =
@@ -57,7 +61,7 @@ abstract class BaseMainActivityResolvePatch(
     fun injectOnCreateMethodCall(classDescriptor: String, methodDescriptor: String) =
         onCreateMethod.injectMethodCall(classDescriptor, methodDescriptor)
 
-    private fun getMethod(methodDescriptor: String) =
+    internal fun getMethod(methodDescriptor: String) =
         mainActivityMutableClass.methods.find { method -> method.name == methodDescriptor }
             ?: throw PatchException("Could not find $methodDescriptor")
 

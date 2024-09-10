@@ -3,9 +3,9 @@
     <string name="gms_core_dialog_continue_text">Devam Et</string>
     <string name="gms_core_dialog_not_whitelisted_not_allowed_in_background_message">"GmsCore'un arka planda çalışma izni yoktur.
 
-Telefonunuz için 'Uygulamamı öldürme' kılavuzunu izleyin ve talimatları MicroG kurulumunuza uygulayın.
+'Uygulamamı öldürmeyin!' cihazınız için kılavuzu kullanın ve talimatları GmsCore kurulumunuza uygulayın.
 
-Bu uygulamanın çalışması için gereklidir."</string>
+Uygulamanın çalışması için bu gereklidir."</string>
     <string name="gms_core_dialog_not_whitelisted_using_battery_optimizations_message">"Sorunları önlemek için GmsCore pil optimizasyonları devre dışı bırakılmalıdır.
 
 Devam düğmesine dokunun ve pil optimizasyonlarını devre dışı bırakın."</string>
@@ -14,6 +14,8 @@ Devam düğmesine dokunun ve pil optimizasyonlarını devre dışı bırakın."<
     <string name="gms_core_settings_summary">Bildirimleri alabilmek için bulut mesajlaşmayı etkinleştirin.</string>
     <string name="gms_core_settings_title">GmsCore\'yi aç</string>
     <string name="gms_core_toast_not_installed_message">GmsCore yüklü değil. Yükleyin.</string>
+    <string name="revanced_bypass_image_region_restrictions_summary">Bazı bölgelerde engellenen alan adını değiştirerek oynatma listesi küçük resimlerinin, kanal avatarlarının vb. alınabilmesini sağlar.</string>
+    <string name="revanced_bypass_image_region_restrictions_title">Resimlerin bölge kısıtlamalarını atla</string>
     <string name="revanced_change_start_page_entry_chart">Listeler</string>
     <string name="revanced_change_start_page_entry_explore">Keşfet</string>
     <string name="revanced_change_start_page_entry_home">Ana Sayfa</string>
@@ -34,6 +36,10 @@ Devam düğmesine dokunun ve pil optimizasyonlarını devre dışı bırakın."<
     <string name="revanced_disable_auto_captions_title">Altyazıların kendiliğinden açılmasını kapat</string>
     <string name="revanced_disable_dislike_redirection_summary">Beğenmedim düğmesine tıklandığında sonraki parçaya yönlendirmeyi devre dışı bırakır.</string>
     <string name="revanced_disable_dislike_redirection_title">Beğenmeme yönlendirmesini devre dışı bırak</string>
+    <string name="revanced_disable_mini_player_gesture_summary">Mini oynatıcıdaki parçaları değiştirmek için kaydırmayı devre dışı bırakın.</string>
+    <string name="revanced_disable_mini_player_gesture_title">Mini oynatıcı hareketini devre dışı bırak</string>
+    <string name="revanced_disable_player_gesture_summary">Oynatıcıdaki parçaları değiştirmek için kaydırmayı devre dışı bırakın.</string>
+    <string name="revanced_disable_player_gesture_title">Oynatıcı hareketini devre dışı bırak</string>
     <string name="revanced_enable_black_navigation_bar_summary">Gezinme çubuğunun rengini siyah yapar.</string>
     <string name="revanced_enable_black_navigation_bar_title">Siyah gezinme çubuğunu etkinleştir</string>
     <string name="revanced_enable_black_player_background_summary">Oynatıcının arka plan rengini siyaha değiştirir.</string>
@@ -138,6 +144,8 @@ Lütfen web sitesinden %2$s dosyasını indirin."</string>
     <string name="revanced_hide_comment_channel_guidelines_title">Kanal yönergelerini gizle</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_summary">Yorum yazarken zaman damgası ve emoji düğmelerini gizle.</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_title">Zaman damgası ve emoji düğmelerini gizle</string>
+    <string name="revanced_hide_double_tap_overlay_filter_summary">Çift tıklayarak sürükleme etkinken kara arayüzü gizler.</string>
+    <string name="revanced_hide_double_tap_overlay_filter_title">Çift tıklama arayüz filtresini gizle</string>
     <string name="revanced_hide_floating_button_summary">Kitaplıktaki Yüzen Butonu Gizle.</string>
     <string name="revanced_hide_floating_button_title">Yüzen Butonu Gizle</string>
     <string name="revanced_hide_flyout_menu_3_column_component_title">3-sütunlu bileşenleri gizle</string>
@@ -173,6 +181,8 @@ Lütfen web sitesinden %2$s dosyasını indirin."</string>
     <string name="revanced_hide_fullscreen_ads_summary">Tam ekran reklamlarını gizler.</string>
     <string name="revanced_hide_fullscreen_ads_title">Tam ekran reklamlarını gizle</string>
     <string name="revanced_hide_fullscreen_ads_type_summary">"Etkinleştirilirse Kapat düğmesi aracılığıyla tam ekran reklamlar kapatılır. Devre dışı bırakılırsa tam ekran reklamlar engellenir. (yan etkiler olabilir)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_off">"Etkinleştirilirse Kapat düğmesi aracılığıyla tam ekran reklamlar kapatılır. Devre dışı bırakılırsa tam ekran reklamlar engellenir. (yan etkiler olabilir)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_on">"Etkinleştirilirse Kapat düğmesi aracılığıyla tam ekran reklamlar kapatılır. Devre dışı bırakılırsa tam ekran reklamlar engellenir. (yan etkiler olabilir)"</string>
     <string name="revanced_hide_fullscreen_ads_type_title">Tam ekran reklamlarını kapat</string>
     <string name="revanced_hide_fullscreen_share_button_summary">Tam ekran oynatıcısındaki paylaş butonunu gizler.</string>
     <string name="revanced_hide_fullscreen_share_button_title">Tam ekran\'daki paylaş butonunu gizle</string>
@@ -210,9 +220,14 @@ Lütfen web sitesinden %2$s dosyasını indirin."</string>
     <string name="revanced_hide_premium_renewal_title">Premium yenileme başlığını gizle</string>
     <string name="revanced_hide_samples_shelf_summary">Feed\'deki örnek rafını gizler.</string>
     <string name="revanced_hide_samples_shelf_title">Örnek rafını gizle</string>
+    <string name="revanced_hide_settings_menu_filter_strings_summary">Yeni bir satırla ayrılmış olarak filtrelenecek ayarlar menüsü adlarının listesi.</string>
+    <string name="revanced_hide_settings_menu_filter_strings_title">Ayarları menüsü filtresi</string>
+    <string name="revanced_hide_settings_menu_summary">"Ayarlar menüsünün öğelerini gizleyin.
+Bu, yalnızca YT Music ayarlar menüsünü değil aynı zamanda ReVanced Extended ayarlar menüsünü de gizler."</string>
+    <string name="revanced_hide_settings_menu_title">Ayarlar menüsünü gizle</string>
     <string name="revanced_hide_sound_search_button_summary">Arama çubuğundaki ses arama düğmesini gizler.</string>
     <string name="revanced_hide_sound_search_button_title">Sesli arama düğmesini gizle</string>
-    <string name="revanced_hide_tap_to_update_button_summary">\'Güncellemek için tıkla\' butonunu gizler.</string>
+    <string name="revanced_hide_tap_to_update_button_summary">Güncellemek için tıkla butonunu gizler.</string>
     <string name="revanced_hide_tap_to_update_button_title">Güncellemek için tıkla butonunu gizle</string>
     <string name="revanced_hide_terms_container_summary">Hizmet Şartları kapsayıcısını gizler.</string>
     <string name="revanced_hide_terms_container_title">Terimler kapsayıcısını gizle</string>
@@ -278,7 +293,6 @@ Eski oynatıcı düzeninde bazı ayarlar düzgün çalışmayabilir."</string>
     <string name="revanced_ryd_failure_generic">Beğenmemeler mevcut değil (%s).</string>
     <string name="revanced_ryd_toast_on_connection_error_summary">Return YouTube Dislike API mevcut değilse uyarı gösterir.</string>
     <string name="revanced_ryd_toast_on_connection_error_title">API mevcut değilse bir uyarı göster</string>
-    <string name="revanced_ryd_video_likes_hidden_by_video_owner">Gizlendi</string>
     <string name="revanced_sanitize_sharing_links_summary">Bağlantıları paylaşırken, tracking query parametrelerini URL\'lerden kaldırır.</string>
     <string name="revanced_sanitize_sharing_links_title">Paylaşılan bağlantıları sterilize edin</string>
     <string name="revanced_sb_about">Hakkında</string>
@@ -310,7 +324,7 @@ Eski oynatıcı düzeninde bazı ayarlar düzgün çalışmayabilir."</string>
     <string name="revanced_sb_segments_preview">Önizleme / Özet / Hook</string>
     <string name="revanced_sb_segments_preview_sum">Videoda veya bir dizinin diğer videolarında neler olduğunu veya neler olduğunu gösteren, tüm bilgilerin başka bir yerde tekrarlandığı klip koleksiyonu.</string>
     <string name="revanced_sb_segments_selfpromo">Karşılıksız/Kişisel Promosyon</string>
-    <string name="revanced_sb_segments_selfpromo_sum">\"Sponsor\" seçeneğinden farkı para karşılığı olmaması veya kendi reklamını yapmasıdır. Buna kendi markalı ürünlerini satmak, bağış toplamak ve videoda işbirliği yaptığı kimselerden bahsetmek dahildir.</string>
+    <string name="revanced_sb_segments_selfpromo_sum">Ücretsiz veya kendi kendine tanıtım haricinde Sponsora benzer. Ürünler, bağışlar veya kiminle işbirliği yaptıklarına ilişkin bilgilerle ilgili bölümler içerir.</string>
     <string name="revanced_sb_segments_sponsor">Sponsor</string>
     <string name="revanced_sb_segments_sponsor_sum">Ücretli tanıtım, ücretli yönlendirmeler ve doğrudan reklamlar. Kendi tanıtımını yapmak veya beğendikleri olaylara / içerik üreticilerine / web sitelerine / ürünlere ücretsiz olarak atıfta bulunanlar için değil.</string>
     <string name="revanced_sb_skip_automatically">Otomatik olarak atla</string>

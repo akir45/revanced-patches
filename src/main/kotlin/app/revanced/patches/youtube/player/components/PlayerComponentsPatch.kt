@@ -20,28 +20,39 @@ import app.revanced.patches.youtube.player.components.fingerprints.InfoCardsInco
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutCircleFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutIconFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.LayoutVideoFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.LithoComponentOnClickListenerFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.NoticeOnClickListenerFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.OfflineActionsOnClickListenerFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.QuickSeekOverlayFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.SeekEduContainerFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.SuggestedActionsFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.TouchAreaOnClickListenerFingerprint
+import app.revanced.patches.youtube.player.components.fingerprints.VideoZoomSnapIndicatorFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.WatermarkFingerprint
 import app.revanced.patches.youtube.player.components.fingerprints.WatermarkParentFingerprint
 import app.revanced.patches.youtube.player.speedoverlay.SpeedOverlayPatch
 import app.revanced.patches.youtube.utils.compatibility.Constants.COMPATIBLE_PACKAGE
 import app.revanced.patches.youtube.utils.controlsoverlay.ControlsOverlayConfigPatch
+import app.revanced.patches.youtube.utils.fingerprints.StartVideoInformerFingerprint
 import app.revanced.patches.youtube.utils.fingerprints.YouTubeControlsOverlayFingerprint
 import app.revanced.patches.youtube.utils.fix.suggestedvideoendscreen.SuggestedVideoEndScreenPatch
 import app.revanced.patches.youtube.utils.integrations.Constants.COMPONENTS_PATH
 import app.revanced.patches.youtube.utils.integrations.Constants.PLAYER_CLASS_DESCRIPTOR
 import app.revanced.patches.youtube.utils.playertype.PlayerTypeHookPatch
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch
+import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.DarkBackground
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.FadeDurationFast
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.ScrimOverlay
 import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.SeekUndoEduOverlayStub
+import app.revanced.patches.youtube.utils.resourceid.SharedResourceIdPatch.TapBloomView
 import app.revanced.patches.youtube.utils.settings.SettingsPatch
+import app.revanced.patches.youtube.video.information.VideoInformationPatch
+import app.revanced.util.REGISTER_TEMPLATE_REPLACEMENT
 import app.revanced.util.getTargetIndexOrThrow
 import app.revanced.util.getTargetIndexReversedOrThrow
 import app.revanced.util.getTargetIndexWithMethodReferenceNameOrThrow
 import app.revanced.util.getWideLiteralInstructionIndex
+import app.revanced.util.literalInstructionViewHook
 import app.revanced.util.patch.BaseBytecodePatch
 import app.revanced.util.resultOrThrow
 import com.android.tools.smali.dexlib2.Opcode
@@ -62,7 +73,8 @@ object PlayerComponentsPatch : BaseBytecodePatch(
         SettingsPatch::class,
         SharedResourceIdPatch::class,
         SpeedOverlayPatch::class,
-        SuggestedVideoEndScreenPatch::class
+        SuggestedVideoEndScreenPatch::class,
+        VideoInformationPatch::class
     ),
     compatiblePackages = COMPATIBLE_PACKAGE,
     fingerprints = setOf(
@@ -73,9 +85,15 @@ object PlayerComponentsPatch : BaseBytecodePatch(
         LayoutCircleFingerprint,
         LayoutIconFingerprint,
         LayoutVideoFingerprint,
+        LithoComponentOnClickListenerFingerprint,
+        NoticeOnClickListenerFingerprint,
+        OfflineActionsOnClickListenerFingerprint,
+        QuickSeekOverlayFingerprint,
         SeekEduContainerFingerprint,
+        StartVideoInformerFingerprint,
         SuggestedActionsFingerprint,
         TouchAreaOnClickListenerFingerprint,
+        VideoZoomSnapIndicatorFingerprint,
         WatermarkParentFingerprint,
         YouTubeControlsOverlayFingerprint,
     )
@@ -108,21 +126,57 @@ object PlayerComponentsPatch : BaseBytecodePatch(
 
         // region patch for disable auto player popup panels
 
+        fun MutableMethod.hookInitVideoPanel(initVideoPanel: Int) =
+            addInstructions(
+                0, """
+                    const/4 v0, $initVideoPanel
+                    invoke-static {v0}, $PLAYER_CLASS_DESCRIPTOR->setInitVideoPanel(Z)V
+                    """
+            )
+
+        arrayOf(
+            LithoComponentOnClickListenerFingerprint,
+            NoticeOnClickListenerFingerprint,
+            OfflineActionsOnClickListenerFingerprint,
+            StartVideoInformerFingerprint,
+        ).forEach { fingerprint ->
+            fingerprint.resultOrThrow().mutableMethod.apply {
+                if (fingerprint == StartVideoInformerFingerprint) {
+                    hookInitVideoPanel(1)
+                } else {
+                    val syntheticIndex = getTargetIndexOrThrow(Opcode.NEW_INSTANCE)
+                    val syntheticReference =
+                        getInstruction<ReferenceInstruction>(syntheticIndex).reference.toString()
+                    val syntheticClass =
+                        context.findClass(syntheticReference)!!.mutableClass
+
+                    syntheticClass.methods.find { method -> method.name == "onClick" }
+                        ?.hookInitVideoPanel(0)
+                        ?: throw PatchException("Could not find onClick method in $syntheticReference")
+                }
+            }
+        }
+
         EngagementPanelControllerFingerprint.resultOrThrow().let {
             it.mutableMethod.apply {
                 addInstructionsWithLabels(
                     0, """
-                        invoke-static {}, $PLAYER_CLASS_DESCRIPTOR->disableAutoPlayerPopupPanels()Z
+                        move/from16 v0, p4
+                        invoke-static {v0}, $PLAYER_CLASS_DESCRIPTOR->disableAutoPlayerPopupPanels(Z)Z
                         move-result v0
                         if-eqz v0, :shown
-                        # The type of the fourth parameter is boolean.
-                        if-eqz p4, :shown
                         const/4 v0, 0x0
                         return-object v0
                         """, ExternalLabel("shown", getInstruction(0))
                 )
             }
         }
+
+        // endregion
+
+        // region patch for disable auto switch mix playlists
+
+        VideoInformationPatch.hook("$PLAYER_CLASS_DESCRIPTOR->disableAutoSwitchMixPlaylists(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZ)V")
 
         // endregion
 
@@ -160,6 +214,24 @@ object PlayerComponentsPatch : BaseBytecodePatch(
                     "invoke-static {v$register}, $PLAYER_CLASS_DESCRIPTOR->hideCrowdfundingBox(Landroid/view/View;)V"
                 )
             }
+        }
+
+        // endregion
+
+        // region patch for hide double-tap overlay filter
+
+        val smaliInstruction = """
+            invoke-static {v$REGISTER_TEMPLATE_REPLACEMENT}, $PLAYER_CLASS_DESCRIPTOR->hideDoubleTapOverlayFilter(Landroid/view/View;)V
+            """
+
+        arrayOf(
+            DarkBackground,
+            TapBloomView
+        ).forEach { literal ->
+            QuickSeekOverlayFingerprint.literalInstructionViewHook(
+                literal,
+                smaliInstruction
+            )
         }
 
         // endregion
@@ -219,7 +291,7 @@ object PlayerComponentsPatch : BaseBytecodePatch(
                 addLiteralValues(insertIndex, jumpIndex - 1)
 
                 addInstructionsWithLabels(
-                    insertIndex + 1, """
+                    insertIndex + 1, literalComponent + """
                         const v$constRegister, $FadeDurationFast
                         invoke-static {}, $PLAYER_CLASS_DESCRIPTOR->hideFilmstripOverlay()Z
                         move-result v${replaceInstruction.registerA}
@@ -332,6 +404,21 @@ object PlayerComponentsPatch : BaseBytecodePatch(
 
         // endregion
 
+        // region patch for hide video zoom overlay
+
+        VideoZoomSnapIndicatorFingerprint.resultOrThrow().mutableMethod.apply {
+            addInstructionsWithLabels(
+                0, """
+                    invoke-static {}, $PLAYER_CLASS_DESCRIPTOR->hideZoomOverlay()Z
+                    move-result v0
+                    if-eqz v0, :shown
+                    return-void
+                    """, ExternalLabel("shown", getInstruction(0))
+            )
+        }
+
+        // endregion
+
         LithoFilterPatch.addFilter(PLAYER_COMPONENTS_FILTER_CLASS_DESCRIPTOR)
 
         /**
@@ -355,31 +442,16 @@ object PlayerComponentsPatch : BaseBytecodePatch(
     ) {
         for (index in startIndex..endIndex) {
             val opcode = getInstruction(index).opcode
-            if (opcode != Opcode.CONST_16 && opcode != Opcode.CONST_4 && opcode != Opcode.CONST)
+            if (opcode != Opcode.CONST_16 && opcode != Opcode.CONST_4)
                 continue
 
             val register = getInstruction<OneRegisterInstruction>(index).registerA
             val value = getInstruction<WideLiteralInstruction>(index).wideLiteral.toInt()
 
-            val line =
-                when (opcode) {
-                    Opcode.CONST_16 -> """
-                            const/16 v$register, $value
-                            
-                            """.trimIndent()
-
-                    Opcode.CONST_4 -> """
-                            const/4 v$register, $value
-                            
-                            """.trimIndent()
-
-                    Opcode.CONST -> """
-                            const v$register, $value
-                            
-                            """.trimIndent()
-
-                    else -> ""
-                }
+            val line = """
+                const/16 v$register, $value
+                
+                """.trimIndent()
 
             literalComponent += line
         }

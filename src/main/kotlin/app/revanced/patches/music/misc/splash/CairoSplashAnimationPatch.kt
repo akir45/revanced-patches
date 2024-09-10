@@ -11,14 +11,15 @@ import app.revanced.patches.music.utils.settings.SettingsPatch
 import app.revanced.util.literalInstructionBooleanHook
 
 @Patch(
-    name = "Enable Cairo splash animation",
-    description = "Adds an option to enable Cairo splash animation.",
+    name = "Disable Cairo splash animation",
+    description = "Adds an option to disable Cairo splash animation.",
     dependencies = [SettingsPatch::class],
     compatiblePackages = [
         CompatiblePackage(
             "com.google.android.apps.youtube.music",
             [
-                "7.06.53",
+                "7.06.54",
+                "7.17.51",
             ]
         )
     ]
@@ -29,16 +30,20 @@ object CairoSplashAnimationPatch : BytecodePatch(
 ) {
     override fun execute(context: BytecodeContext) {
 
-        CairoSplashAnimationConfigFingerprint.literalInstructionBooleanHook(
-            45635386,
-            "$MISC_PATH/CairoSplashAnimationPatch;->enableCairoSplashAnimation()Z"
-        )
+        CairoSplashAnimationConfigFingerprint.result?.let {
+            CairoSplashAnimationConfigFingerprint.literalInstructionBooleanHook(
+                45635386,
+                "$MISC_PATH/CairoSplashAnimationPatch;->disableCairoSplashAnimation(Z)Z"
+            )
 
-        SettingsPatch.addSwitchPreference(
-            CategoryType.MISC,
-            "revanced_enable_cairo_splash_animation",
-            "false"
-        )
+            SettingsPatch.addSwitchPreference(
+                CategoryType.MISC,
+                "revanced_disable_cairo_splash_animation",
+                "false"
+            )
+
+        }
+            ?: println("WARNING: This patch is not supported in this version. Use YouTube Music 7.06.54 or later.")
 
     }
 }

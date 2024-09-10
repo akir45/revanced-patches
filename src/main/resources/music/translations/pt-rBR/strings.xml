@@ -3,7 +3,7 @@
     <string name="gms_core_dialog_continue_text">Continuar</string>
     <string name="gms_core_dialog_not_whitelisted_not_allowed_in_background_message">"O GmsCore não tem permissão para executar em segundo plano.
 
-Siga o guia 'Não mate o meu aplicativo' para o seu telefone e aplique as instruções para a sua instalação do MicroG.
+Siga o guia Não mate o meu aplicativo para o seu telefone e aplique as instruções para a sua instalação do MicroG.
 
 Isto é necessário para o aplicativo funcionar."</string>
     <string name="gms_core_dialog_not_whitelisted_using_battery_optimizations_message">"As otimizações da bateria GmsCore devem ser desativadas para evitar problemas.
@@ -14,6 +14,10 @@ Toque no botão continuar e desative as otimizações da bateria."</string>
     <string name="gms_core_settings_summary">Ative as mensagens na nuvem para receber notificações.</string>
     <string name="gms_core_settings_title">Abrir GmsCore</string>
     <string name="gms_core_toast_not_installed_message">O GmsCore não está instalado. Instale-o.</string>
+    <string name="revanced_bypass_image_region_restrictions_summary">Substitui o domínio que está bloqueado em algumas regiões para que miniaturas para playlists, avatares de canais, etc. possam ser recebidos.</string>
+    <string name="revanced_bypass_image_region_restrictions_title">Ignorar restrições de imagem por região</string>
+    <string name="revanced_change_share_sheet_summary">Alterar o menu de compartilhamento do app para o meno de compartilhamento do sistema.</string>
+    <string name="revanced_change_share_sheet_title">Alterar menu de compartilhamento</string>
     <string name="revanced_change_start_page_entry_chart">Paradas</string>
     <string name="revanced_change_start_page_entry_explore">Explorar</string>
     <string name="revanced_change_start_page_entry_home">Início</string>
@@ -34,6 +38,10 @@ Toque no botão continuar e desative as otimizações da bateria."</string>
     <string name="revanced_disable_auto_captions_title">Desativar legendas automáticas</string>
     <string name="revanced_disable_dislike_redirection_summary">Desativa o redirecionamento para a próxima faixa ao clicar no botão de Dislike.</string>
     <string name="revanced_disable_dislike_redirection_title">Desativar redirecionamento de dislike</string>
+    <string name="revanced_disable_mini_player_gesture_summary">Desativar deslize para alterar faixas no mini reprodutor.</string>
+    <string name="revanced_disable_mini_player_gesture_title">Desativar gesto do mini reprodutor</string>
+    <string name="revanced_disable_player_gesture_summary">Desativar deslize para alterar faixas no reprodutor.</string>
+    <string name="revanced_disable_player_gesture_title">Desativar gesto do reprodutor</string>
     <string name="revanced_enable_black_navigation_bar_summary">Define a cor da barra de navegação para preto.</string>
     <string name="revanced_enable_black_navigation_bar_title">Ativar barra de navegação preta</string>
     <string name="revanced_enable_black_player_background_summary">Altera a cor de fundo do reprodutor para preto.</string>
@@ -138,6 +146,8 @@ Por favor, baixe %2$s do site."</string>
     <string name="revanced_hide_comment_channel_guidelines_title">Ocultar diretrizes do canal</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_summary">Oculta os botões de marcação de tempo e emoji ao escrever comentários.</string>
     <string name="revanced_hide_comment_timestamp_and_emoji_buttons_title">Ocultar botões de marcação de tempo e emoji</string>
+    <string name="revanced_hide_double_tap_overlay_filter_summary">Oculta a sobreposição escura que aparece quando um duplo toque para procurar.</string>
+    <string name="revanced_hide_double_tap_overlay_filter_title">Ocultar filtro de sobreposição de toque duplo</string>
     <string name="revanced_hide_floating_button_summary">Oculta o botão flutuante na aba Biblioteca.</string>
     <string name="revanced_hide_floating_button_title">Ocultar botão flutuante</string>
     <string name="revanced_hide_flyout_menu_3_column_component_title">Ocultar componente de 3 colunas</string>
@@ -174,6 +184,10 @@ Por favor, baixe %2$s do site."</string>
     <string name="revanced_hide_fullscreen_ads_title">Ocultar anúncios em tela cheia</string>
     <string name="revanced_hide_fullscreen_ads_type_summary">"Se estiver ativado, os anúncios em tela cheia são fechados através do botão Fechar.
 Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver efeitos colaterais)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_off">"Se estiver ativado, os anúncios em tela cheia são fechados através do botão Fechar.
+Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver efeitos colaterais)"</string>
+    <string name="revanced_hide_fullscreen_ads_type_summary_on">"Se estiver ativado, os anúncios em tela cheia são fechados através do botão Fechar.
+Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver efeitos colaterais)"</string>
     <string name="revanced_hide_fullscreen_ads_type_title">Fechar anúncios em tela cheia</string>
     <string name="revanced_hide_fullscreen_share_button_summary">Oculta o botão Compartilhar no reprodutor de tela cheia.</string>
     <string name="revanced_hide_fullscreen_share_button_title">Ocultar botão Compartilhar em tela cheia</string>
@@ -209,12 +223,19 @@ Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver
     <string name="revanced_hide_premium_promotion_title">Ocultar pop-ups de promoção premium</string>
     <string name="revanced_hide_premium_renewal_summary">Oculta o banner de renovação premium.</string>
     <string name="revanced_hide_premium_renewal_title">Ocultar banner de renovação premium</string>
+    <string name="revanced_hide_promotion_alert_banner_summary">Oculta o banner de alerta de promoção.</string>
+    <string name="revanced_hide_promotion_alert_banner_title">Ocultar banner de alerta de promoção</string>
     <string name="revanced_hide_samples_shelf_summary">Oculta o painel Descobertas no feed.</string>
     <string name="revanced_hide_samples_shelf_title">Ocultar painel Descobertas</string>
+    <string name="revanced_hide_settings_menu_filter_strings_summary">Lista de nomes do menu de configurações para filtrar, separados por novas linhas.</string>
+    <string name="revanced_hide_settings_menu_filter_strings_title">Filtro do menu configurações</string>
+    <string name="revanced_hide_settings_menu_summary">"Oculte elementos do menu de configurações.
+Isso oculta não apenas o menu de configurações do YT Music, mas também o menu de configurações do ReVanced Extended."</string>
+    <string name="revanced_hide_settings_menu_title">Ocultar menu de configurações</string>
     <string name="revanced_hide_sound_search_button_summary">Oculta o botão de pesquisa de som na barra de pesquisa.</string>
     <string name="revanced_hide_sound_search_button_title">Ocultar botão de pesquisa de som</string>
-    <string name="revanced_hide_tap_to_update_button_summary">Oculta o botão \'Toque para atualizar\'.</string>
-    <string name="revanced_hide_tap_to_update_button_title">Ocultar botão \'Toque para atualizar\'</string>
+    <string name="revanced_hide_tap_to_update_button_summary">Oculta o botão Toque para atualizar.</string>
+    <string name="revanced_hide_tap_to_update_button_title">Ocultar botão Toque para atualizar</string>
     <string name="revanced_hide_terms_container_summary">Oculta o contêiner dos Termos de Serviço.</string>
     <string name="revanced_hide_terms_container_title">Ocultar contêiner de termos</string>
     <string name="revanced_hide_voice_search_button_summary">Oculta o botão de pesquisa por voz na barra de pesquisa.</string>
@@ -232,6 +253,8 @@ Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver
     <string name="revanced_preference_screen_video_title">Vídeo</string>
     <string name="revanced_remember_playback_speed_last_selected_summary">Lembra a última velocidade de reprodução selecionada.</string>
     <string name="revanced_remember_playback_speed_last_selected_title">Lembrar mudança na velocidade de reprodução</string>
+    <string name="revanced_remember_playback_speed_last_selected_toast_summary">Exibir uma notificação flutuante quando alterar a velocidade padrão de reprodução.</string>
+    <string name="revanced_remember_playback_speed_last_selected_toast_title">Exibir uma notificação flutuante</string>
     <string name="revanced_remember_playback_speed_toast">Alterando a velocidade padrão para %s.</string>
     <string name="revanced_remember_repeat_state_summary">Lembra o estado da alternância de repetição.</string>
     <string name="revanced_remember_repeat_state_title">Lembrar estado de repetição</string>
@@ -239,6 +262,8 @@ Se estiver desativado, os anúncios em tela cheia serão bloqueados. (pode haver
     <string name="revanced_remember_shuffle_state_title">Lembrar estado do modo aleatório</string>
     <string name="revanced_remember_video_quality_last_selected_summary">Lembra a última qualidade de vídeo selecionada.</string>
     <string name="revanced_remember_video_quality_last_selected_title">Lembrar mudança na qualidade do vídeo</string>
+    <string name="revanced_remember_video_quality_last_selected_toast_summary">Exibir uma notificação flutuante quando alterar a qualidade padrão do vídeo.</string>
+    <string name="revanced_remember_video_quality_last_selected_toast_title">Exibir uma notificação flutuante</string>
     <string name="revanced_remember_video_quality_mobile">Alterando a qualidade padrão de dados móveis para %s.</string>
     <string name="revanced_remember_video_quality_none">Falha ao definir qualidade.</string>
     <string name="revanced_remember_video_quality_wifi">Alterando a qualidade padrão do Wi-Fi para %s.</string>
@@ -279,7 +304,6 @@ Alguns recursos podem não funcionar corretamente no layout antigo do reprodutor
     <string name="revanced_ryd_failure_generic">Deslikes indisponível (%s).</string>
     <string name="revanced_ryd_toast_on_connection_error_summary">Notificação flutuante exibida se o Return YouTube Dislike não está disponível.</string>
     <string name="revanced_ryd_toast_on_connection_error_title">Exibir uma notificação flutuante se a API não estiver disponível</string>
-    <string name="revanced_ryd_video_likes_hidden_by_video_owner">Oculto</string>
     <string name="revanced_sanitize_sharing_links_summary">Remove os parâmetros de consulta de rastreamento das URLs ao compartilhar os links.</string>
     <string name="revanced_sanitize_sharing_links_title">Limpar links compartilhados</string>
     <string name="revanced_sb_about">Sobre</string>
@@ -311,7 +335,7 @@ Alguns recursos podem não funcionar corretamente no layout antigo do reprodutor
     <string name="revanced_sb_segments_preview">Pré-visualização / Recapitulação / Hook</string>
     <string name="revanced_sb_segments_preview_sum">Coleção de clipes que mostram o que está por vir ou o que aconteceu no vídeo ou em outros vídeos de uma série, onde todas as informações são repetidas em outro lugar.</string>
     <string name="revanced_sb_segments_selfpromo">Não pago / Autopromoção</string>
-    <string name="revanced_sb_segments_selfpromo_sum">Semelhante ao \'Patrocinador\' exceto pela promoção não paga ou autopromoção. Inclui seções sobre mercadorias, doações ou informações sobre com quem eles colaboraram.</string>
+    <string name="revanced_sb_segments_selfpromo_sum">Semelhante ao Patrocinador exceto pela promoção não paga ou autopromoção. Inclui seções sobre mercadorias, doações ou informações sobre com quem eles colaboraram.</string>
     <string name="revanced_sb_segments_sponsor">Patrocinador</string>
     <string name="revanced_sb_segments_sponsor_sum">Promoção paga, referências pagas e anúncios diretos. Não deve ser usado para auto-promoção ou mensagens grátis para causas / criadores/sites / produtos que eles gostam.</string>
     <string name="revanced_sb_skip_automatically">Pular automaticamente</string>
@@ -333,7 +357,7 @@ Alguns recursos podem não funcionar corretamente no layout antigo do reprodutor
     <string name="revanced_sb_sponsorblock_connection_failure_status">O SponsorBlock está temporariamente indisponível (status %d).</string>
     <string name="revanced_sb_sponsorblock_connection_failure_timeout">O SponsorBlock está temporariamente indisponível (API expirou).</string>
     <string name="revanced_sb_toast_on_connection_error">Exibir uma notificação flutuante se a API não estiver disponível</string>
-    <string name="revanced_sb_toast_on_connection_error_sum">Mostra uma notificação flutuante se a API SponsorBlock não estiver disponível.</string>
+    <string name="revanced_sb_toast_on_connection_error_sum">Exibe uma notificação flutuante se a API SponsorBlock não estiver disponível.</string>
     <string name="revanced_sb_toast_on_skip">Exibir uma notificação flutuante quando pular automaticamente</string>
     <string name="revanced_sb_toast_on_skip_sum">Uma notificação flutuante é exibida quando um segmento é ignorado automaticamente.</string>
     <string name="revanced_share_copy_settings_success">Configurações copiadas para área de transferência.</string>

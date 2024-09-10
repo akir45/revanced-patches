@@ -176,6 +176,7 @@ object VideoPlaybackPatch : BaseBytecodePatch(
         }
 
         VideoInformationPatch.hookBackgroundPlay("$INTEGRATIONS_PLAYBACK_SPEED_CLASS_DESCRIPTOR->newVideoStarted(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZ)V")
+        VideoIdPatch.hookPlayerResponseVideoId("$INTEGRATIONS_PLAYBACK_SPEED_CLASS_DESCRIPTOR->fetchPlaylistData(Ljava/lang/String;Z)V")
 
         context.updatePatchStatus(PATCH_STATUS_CLASS_DESCRIPTOR, "RememberPlaybackSpeed")
 
@@ -209,6 +210,10 @@ object VideoPlaybackPatch : BaseBytecodePatch(
 
         VideoInformationPatch.hookBackgroundPlay("$INTEGRATIONS_RELOAD_VIDEO_CLASS_DESCRIPTOR->newVideoStarted(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZ)V")
         VideoInformationPatch.hook("$INTEGRATIONS_VIDEO_QUALITY_CLASS_DESCRIPTOR->newVideoStarted(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZ)V")
+        VideoInformationPatch.onCreateHook(
+            INTEGRATIONS_VIDEO_QUALITY_CLASS_DESCRIPTOR,
+            "newVideoStarted"
+        )
 
         // endregion
 

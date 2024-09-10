@@ -17,6 +17,7 @@ import app.revanced.patches.shared.mapping.ResourceType.STYLE
 
 @Patch(dependencies = [ResourceMappingPatch::class])
 object SharedResourceIdPatch : ResourcePatch() {
+    var AccessibilityOfflineButtonSync = -1L
     var AccountSwitcherAccessibility = -1L
     var ActionBarRingo = -1L
     var ActionBarRingoBackground = -1L
@@ -31,6 +32,7 @@ object SharedResourceIdPatch : ResourcePatch() {
     var Bar = -1L
     var BarContainerHeight = -1L
     var BottomSheetFooterText = -1L
+    var BottomSheetRecyclerView = -1L
     var BottomUiContainerStub = -1L
     var CaptionToggleContainer = -1L
     var CastMediaRouteButton = -1L
@@ -38,7 +40,9 @@ object SharedResourceIdPatch : ResourcePatch() {
     var ChannelListSubMenu = -1L
     var CompactLink = -1L
     var CompactListItem = -1L
+    var ComponentLongClickListener = -1L
     var ControlsLayoutStub = -1L
+    var DarkBackground = -1L
     var DarkSplashAnimation = -1L
     var DonationCompanion = -1L
     var DrawerContentView = -1L
@@ -64,12 +68,15 @@ object SharedResourceIdPatch : ResourcePatch() {
     var InsetOverlayViewLayout = -1L
     var InterstitialsContainer = -1L
     var MenuItemView = -1L
+    var MetaPanel = -1L
     var ModernMiniPlayerClose = -1L
     var ModernMiniPlayerExpand = -1L
     var ModernMiniPlayerForwardButton = -1L
     var ModernMiniPlayerRewindButton = -1L
     var MusicAppDeeplinkButtonView = -1L
+    var Notice = -1L
     var NotificationBigPictureIconWidth = -1L
+    var OfflineActionsVideoDeletedUndoSnackbarText = -1L
     var PlayerCollapseButton = -1L
     var PlayerVideoTitleView = -1L
     var PosterArtWidthDefault = -1L
@@ -77,22 +84,26 @@ object SharedResourceIdPatch : ResourcePatch() {
     var QuickActionsElementContainer = -1L
     var ReelDynRemix = -1L
     var ReelDynShare = -1L
+    var ReelFeedbackLike = -1L
+    var ReelFeedbackPause = -1L
+    var ReelFeedbackPlay = -1L
     var ReelForcedMuteButton = -1L
-    var ReelPivotButton = -1L
     var ReelPlayerFooter = -1L
+    var ReelPlayerRightPivotV2Size = -1L
     var ReelRightDislikeIcon = -1L
     var ReelRightLikeIcon = -1L
     var ReelTimeBarPlayedColor = -1L
+    var ReelVodTimeStampsContainer = -1L
     var RelatedChipCloudMargin = -1L
     var RightComment = -1L
     var ScrimOverlay = -1L
     var Scrubbing = -1L
     var SeekEasyHorizontalTouchOffsetToStartScrubbing = -1L
     var SeekUndoEduOverlayStub = -1L
-    var SingleLoopEduSnackBarText = -1L
     var SlidingDialogAnimation = -1L
     var SubtitleMenuSettingsFooterInfo = -1L
     var SuggestedAction = -1L
+    var TapBloomView = -1L
     var TitleAnchor = -1L
     var ToolTipContentView = -1L
     var TotalTime = -1L
@@ -100,6 +111,7 @@ object SharedResourceIdPatch : ResourcePatch() {
     var VideoQualityBottomSheet = -1L
     var VarispeedUnavailableTitle = -1L
     var VideoQualityUnavailableAnnouncement = -1L
+    var VideoZoomSnapIndicator = -1L
     var VoiceSearch = -1L
     var YouTubeControlsOverlaySubtitleButton = -1L
     var YtOutlinePictureInPictureWhite = -1L
@@ -110,6 +122,7 @@ object SharedResourceIdPatch : ResourcePatch() {
 
     override fun execute(context: ResourceContext) {
 
+        AccessibilityOfflineButtonSync = getId(STRING, "accessibility_offline_button_sync")
         AccountSwitcherAccessibility = getId(STRING, "account_switcher_accessibility_label")
         ActionBarRingo = getId(LAYOUT, "action_bar_ringo")
         ActionBarRingoBackground = getId(LAYOUT, "action_bar_ringo_background")
@@ -124,6 +137,7 @@ object SharedResourceIdPatch : ResourcePatch() {
         Bar = getId(LAYOUT, "bar")
         BarContainerHeight = getId(DIMEN, "bar_container_height")
         BottomSheetFooterText = getId(ID, "bottom_sheet_footer_text")
+        BottomSheetRecyclerView = getId(LAYOUT, "bottom_sheet_recycler_view")
         BottomUiContainerStub = getId(ID, "bottom_ui_container_stub")
         CaptionToggleContainer = getId(ID, "caption_toggle_container")
         CastMediaRouteButton = getId(LAYOUT, "castmediaroutebutton")
@@ -131,7 +145,9 @@ object SharedResourceIdPatch : ResourcePatch() {
         ChannelListSubMenu = getId(LAYOUT, "channel_list_sub_menu")
         CompactLink = getId(LAYOUT, "compact_link")
         CompactListItem = getId(LAYOUT, "compact_list_item")
+        ComponentLongClickListener = getId(ID, "component_long_click_listener")
         ControlsLayoutStub = getId(ID, "controls_layout_stub")
+        DarkBackground = getId(ID, "dark_background")
         DarkSplashAnimation = getId(ID, "dark_splash_animation")
         DonationCompanion = getId(LAYOUT, "donation_companion")
         DrawerContentView = getId(ID, "drawer_content_view")
@@ -159,12 +175,16 @@ object SharedResourceIdPatch : ResourcePatch() {
         InsetOverlayViewLayout = getId(ID, "inset_overlay_view_layout")
         InterstitialsContainer = getId(ID, "interstitials_container")
         MenuItemView = getId(ID, "menu_item_view")
+        MetaPanel = getId(ID, "metapanel")
         ModernMiniPlayerClose = getId(ID, "modern_miniplayer_close")
         ModernMiniPlayerExpand = getId(ID, "modern_miniplayer_expand")
         ModernMiniPlayerForwardButton = getId(ID, "modern_miniplayer_forward_button")
         ModernMiniPlayerRewindButton = getId(ID, "modern_miniplayer_rewind_button")
         MusicAppDeeplinkButtonView = getId(ID, "music_app_deeplink_button_view")
+        Notice = getId(ID, "notice")
         NotificationBigPictureIconWidth = getId(DIMEN, "notification_big_picture_icon_width")
+        OfflineActionsVideoDeletedUndoSnackbarText =
+            getId(STRING, "offline_actions_video_deleted_undo_snackbar_text")
         PlayerCollapseButton = getId(ID, "player_collapse_button")
         PlayerVideoTitleView = getId(ID, "player_video_title_view")
         PosterArtWidthDefault = getId(DIMEN, "poster_art_width_default")
@@ -172,12 +192,16 @@ object SharedResourceIdPatch : ResourcePatch() {
         QuickActionsElementContainer = getId(ID, "quick_actions_element_container")
         ReelDynRemix = getId(ID, "reel_dyn_remix")
         ReelDynShare = getId(ID, "reel_dyn_share")
+        ReelFeedbackLike = getId(ID, "reel_feedback_like")
+        ReelFeedbackPause = getId(ID, "reel_feedback_pause")
+        ReelFeedbackPlay = getId(ID, "reel_feedback_play")
         ReelForcedMuteButton = getId(ID, "reel_player_forced_mute_button")
-        ReelPivotButton = getId(ID, "reel_pivot_button")
         ReelPlayerFooter = getId(LAYOUT, "reel_player_dyn_footer_vert_stories3")
+        ReelPlayerRightPivotV2Size = getId(DIMEN, "reel_player_right_pivot_v2_size")
         ReelRightDislikeIcon = getId(DRAWABLE, "reel_right_dislike_icon")
         ReelRightLikeIcon = getId(DRAWABLE, "reel_right_like_icon")
         ReelTimeBarPlayedColor = getId(COLOR, "reel_time_bar_played_color")
+        ReelVodTimeStampsContainer = getId(ID, "reel_vod_timestamps_container")
         RelatedChipCloudMargin = getId(LAYOUT, "related_chip_cloud_reduced_margins")
         RightComment = getId(DRAWABLE, "ic_right_comment_32c")
         ScrimOverlay = getId(ID, "scrim_overlay")
@@ -185,10 +209,10 @@ object SharedResourceIdPatch : ResourcePatch() {
         SeekEasyHorizontalTouchOffsetToStartScrubbing =
             getId(DIMEN, "seek_easy_horizontal_touch_offset_to_start_scrubbing")
         SeekUndoEduOverlayStub = getId(ID, "seek_undo_edu_overlay_stub")
-        SingleLoopEduSnackBarText = getId(STRING, "single_loop_edu_snackbar_text")
         SlidingDialogAnimation = getId(STYLE, "SlidingDialogAnimation")
         SubtitleMenuSettingsFooterInfo = getId(STRING, "subtitle_menu_settings_footer_info")
         SuggestedAction = getId(LAYOUT, "suggested_action")
+        TapBloomView = getId(ID, "tap_bloom_view")
         TitleAnchor = getId(ID, "title_anchor")
         ToolTipContentView = getId(LAYOUT, "tooltip_content_view")
         TotalTime = getId(STRING, "total_time")
@@ -197,6 +221,7 @@ object SharedResourceIdPatch : ResourcePatch() {
         VarispeedUnavailableTitle = getId(STRING, "varispeed_unavailable_title")
         VideoQualityUnavailableAnnouncement =
             getId(STRING, "video_quality_unavailable_announcement")
+        VideoZoomSnapIndicator = getId(ID, "video_zoom_snap_indicator")
         VoiceSearch = getId(ID, "voice_search")
         YouTubeControlsOverlaySubtitleButton =
             getId(LAYOUT, "youtube_controls_overlay_subtitle_button")
